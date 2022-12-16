@@ -1,0 +1,8 @@
+_dist
+large-assets
+.tmp
+journal/*/*.out
+journal/*/*.toc
+journal/*/*.aux
+journal/*/*.pdf
+.private

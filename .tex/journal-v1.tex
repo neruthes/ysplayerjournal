@@ -1,0 +1,177 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[a4paper,textwidth=42em,tmargin=21mm,bmargin=32mm]{geometry}
+
+\usepackage{calc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amsmath,amssymb,xltxtra,fontspec,xunicode,tocloft,fancyhdr,indentfirst}
+\usepackage{graphicx,eso-pic,datetime2,tabu,tcolorbox,multicol}
+\graphicspath{ {./large-assets}{./large-assets/journal/2023} }
+\usepackage{paralist,enumitem,varwidth}
+\setdefaultleftmargin{5em}{2em}{1em}{1em}{1em}{1em}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdfauthor={Neruthes 等各个作者},
+	colorlinks=false,
+	pdfpagemode=FullScreen
+}
+
+\usepackage[PunctStyle=plain,RubberPunctSkip=false,CJKglue=\hskip 0pt,CJKecglue=\hskip 2.5pt plus 20pt]{xeCJK}
+\usepackage{xeCJKfntef}
+% \newcommand{\CJKecglue}{\hskip 2.5pt plus 20pt}
+
+\setmainfont{QTPalatine}
+\setromanfont{QTPalatine}
+\setsansfont{Mona-Sans}
+\setmonofont{JetBrains Mono NL}
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKromanfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans CJK SC}
+% =========================================
+
+
+\linespread{1.2}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\setlength{\columnsep}{2em}
+\setlength{\columnseprule}{0.4pt}
+
+% Playing with tocloft
+\renewcommand{\contentsname}{\LARGE\sffamily\bfseries 本期看点~~~~\Large\mdseries TBALE OF CONTENTS}
+\renewcommand{\cftchapfont}{\sffamily\small}
+\settowidth{\cftchapnumwidth}{\cftchapfont 2222}
+\renewcommand{\cftchappagefont}{\sffamily\small}
+\setlength{\cftbeforechapskip}{1pt}
+
+
+
+
+
+
+
+
+
+\newcommand{\isDraft}[0]{
+    \AddToShipoutPictureFG*{%
+        \put(30mm,30mm){%
+            \rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\rmfamily D~R~A~F~T}}
+        }
+    }
+}
+\newcommand{\maketitlepage}[6]{
+	% argv: year, seq, textcolor, bgpicshift, issuetime, briefing
+    \hypersetup{pdftitle={尘世七国的记忆 - #5}}
+	\begin{titlepage}
+        \newgeometry{textwidth=\textwidth+2em,tmargin=16mm,bmargin=16mm}
+        \parindent=0pt
+		\AddToShipoutPictureBG*{%
+			\put(#4,-1mm){%
+				\includegraphics[height=\paperheight+2mm]{cover/cover-#1-#2}
+			}
+		}
+		\color{#3}
+		\rule{\linewidth}{2.5pt}\vskip 15pt
+		\begin{minipage}{\linewidth}
+			\fontsize{45pt}{50pt}\selectfont
+			\rmfamily\bfseries
+			尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
+		\end{minipage}\par\vskip 10pt
+		\begin{minipage}{\linewidth}
+			\normalsize
+			\sffamily\bfseries
+			那些关于回旋镖、照妖镜、时光机的故事\hfill
+			\LARGE#5
+		\end{minipage}\par\vskip 10pt
+		\rule{\linewidth}{2.5pt}\vskip 55pt
+
+		\begin{minipage}{\linewidth}
+			#6
+		\end{minipage}
+
+		\vfill
+		\begin{minipage}{\linewidth}
+			\footnotesize\sffamily
+			主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
+		\end{minipage}
+		\rule{\linewidth}{2.5pt}
+	\end{titlepage}
+    \restoregeometry
+	\color{black}
+	\fancypagestyle{plain}{
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{0.4pt}
+        \lhead{}
+        \chead{}
+        \rhead{}
+		\lfoot{\footnotesize \textbf{尘世七国的记忆}\hskip 2em#5}
+        \cfoot{}
+        \rfoot{\small\thepage}
+	}
+    \pagestyle{plain}\sffamily
+}
+
+
+
+
+
+\newcommand{\coverstory}[2]{
+	% argv: author, title
+	\begin{center}
+		\sffamily\small\bfseries 封面故事~~/~~#1\\
+		\rmfamily\Huge#2
+	\end{center}
+}
+\newcommand{\iarticle}[4]{
+	% argv: author, title, tagline, noteline
+	\clearpage
+	\stepcounter{chapter}
+	\phantomsection\addcontentsline{toc}{chapter}{\numberline{\thechapter}#2}
+	\noindent\parbox{\linewidth}{
+		{\small\sffamily\bfseries#3}\par\vskip 10pt
+			{\LARGE\rmfamily\bfseries#2}\par\vskip 10pt
+			{\footnotesize\rmfamily\mdseries#4}\par\vskip 1pt
+		\rule{\linewidth}{1.5pt}
+	}\par
+    \vskip 15pt
+}
+\newcommand{\notebox}[2]{
+	\begin{tcolorbox}[colback=gray!5!white,colframe=gray,boxrule=0.4pt,width=\linewidth,left=5pt,right=5pt,top=5pt,bottom=5pt,sharp corners]
+		\fontsize{10pt}{11pt}\selectfont
+		#2
+	\end{tcolorbox}\par
+}
+
+
+
+
+\newcommand{\stdlastpage}[1]{
+	% argv: yearRange
+	\clearpage\pagestyle{empty}
+    \leavevmode\vfill
+	\footnotesize\parindent=0pt
+	版权所有 \copyright{} #1 Neruthes 与其他贡献者。\\
+	文章版权归各个作者所有。\\
+	此文档封面包含《原神》游戏画面之截图，其版权属于上海米哈游影铁科技有限公司或其关联单位。\\
+	此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
+	此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。\\
+	任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\par
+    \vskip 10pt
+
+    本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}
+    \par
+    \vskip 10pt
+}
+
+
+
+
+
+
+
+
+% ============================
+% Miscellaneous utilities
+\newcommand{\cjkul}[1]{\CJKunderanyline{0.5ex}{\rule{2pt}{0.4pt}}{#1}}
+% \newcommand{\pozhehao}[0]{{\fontspec{FandolSong}\CJKfontspec{FandolSong}——}}
+\newcommand{\pozhehao}[0]{\mbox{\raisebox{0.5ex}{\rule{2em}{0.4pt}}}}
