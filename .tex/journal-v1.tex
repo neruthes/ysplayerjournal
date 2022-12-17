@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{report}
-\usepackage[a4paper,textwidth=42em,tmargin=21mm,bmargin=32mm]{geometry}
+\usepackage[a4paper,textwidth=42em,tmargin=21mm,bmargin=21mm]{geometry}
 
 \usepackage{calc}
 \usepackage[dvipsnames]{xcolor}
@@ -11,7 +11,7 @@
 
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
-    pdfauthor={Neruthes 等各个作者},
+	pdfauthor={Neruthes 等各个作者},
 	colorlinks=false,
 	pdfpagemode=FullScreen
 }
@@ -20,8 +20,8 @@
 \usepackage{xeCJKfntef}
 % \newcommand{\CJKecglue}{\hskip 2.5pt plus 20pt}
 
-\setmainfont{QTPalatine}
-\setromanfont{QTPalatine}
+\setmainfont{BaskervilleF}
+\setromanfont{BaskervilleF}
 \setsansfont{Mona-Sans}
 \setmonofont{JetBrains Mono NL}
 \setCJKmainfont{Noto Serif CJK SC}
@@ -35,7 +35,7 @@
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0pt}
 \setlength{\columnsep}{2em}
-\setlength{\columnseprule}{0.4pt}
+% \setlength{\columnseprule}{0.4pt}
 
 % Playing with tocloft
 \renewcommand{\contentsname}{\LARGE\sffamily\bfseries 本期看点~~~~\Large\mdseries TBALE OF CONTENTS}
@@ -53,62 +53,63 @@
 
 
 \newcommand{\isDraft}[0]{
-    \AddToShipoutPictureFG*{%
-        \put(30mm,30mm){%
-            \rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\rmfamily D~R~A~F~T}}
-        }
-    }
-}
-\newcommand{\maketitlepage}[6]{
-	% argv: year, seq, textcolor, bgpicshift, issuetime, briefing
-    \hypersetup{pdftitle={尘世七国的记忆 - #5}}
-	\begin{titlepage}
-        \newgeometry{textwidth=\textwidth+2em,tmargin=16mm,bmargin=16mm}
-        \parindent=0pt
-		\AddToShipoutPictureBG*{%
-			\put(#4,-1mm){%
-				\includegraphics[height=\paperheight+2mm]{cover/cover-#1-#2}
-			}
+	\AddToShipoutPictureFG*{%
+		\put(30mm,30mm){%
+			\rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\rmfamily D~R~A~F~T}}
 		}
-		\color{#3}
-		\rule{\linewidth}{2.5pt}\vskip 15pt
-		\begin{minipage}{\linewidth}
-			\fontsize{45pt}{50pt}\selectfont
-			\rmfamily\bfseries
-			尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
-		\end{minipage}\par\vskip 10pt
-		\begin{minipage}{\linewidth}
-			\normalsize
-			\sffamily\bfseries
-			那些关于回旋镖、照妖镜、时光机的故事\hfill
-			\LARGE#5
-		\end{minipage}\par\vskip 10pt
-		\rule{\linewidth}{2.5pt}\vskip 55pt
-
-		\begin{minipage}{\linewidth}
-			#6
-		\end{minipage}
-
-		\vfill
-		\begin{minipage}{\linewidth}
-			\footnotesize\sffamily
-			主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
-		\end{minipage}
-		\rule{\linewidth}{2.5pt}
-	\end{titlepage}
-    \restoregeometry
-	\color{black}
-	\fancypagestyle{plain}{
-        \renewcommand{\headrulewidth}{0pt}
-        \renewcommand{\footrulewidth}{0.4pt}
-        \lhead{}
-        \chead{}
-        \rhead{}
-		\lfoot{\footnotesize \textbf{尘世七国的记忆}\hskip 2em#5}
-        \cfoot{}
-        \rfoot{\small\thepage}
 	}
-    \pagestyle{plain}\sffamily
+}
+\newcommand{\maketitlepage}[7]{
+	% argv: year, seq, textcolor, bgpicshift, issuetime, bgimg, briefing
+	\hypersetup{pdftitle={尘世七国的记忆 - #5}}
+\begin{titlepage}
+	\newgeometry{textwidth=\textwidth+2em,tmargin=16mm,bmargin=16mm}
+	\parindent=0pt
+	\AddToShipoutPictureBG*{%
+		\put(#4,-1mm){%
+			% \includegraphics[height=\paperheight+2mm]{cover/cover-#1-#2}
+			\includegraphics[height=\paperheight+2mm]{#6}
+		}
+	}
+	\color{#3}
+	\rule{\linewidth}{2.5pt}\vskip 15pt
+	\begin{minipage}{\linewidth}
+		\fontsize{45pt}{50pt}\selectfont
+		\rmfamily\bfseries
+		尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
+	\end{minipage}\par\vskip 10pt
+	\begin{minipage}{\linewidth}
+		\normalsize
+		\sffamily\bfseries
+		那些关于回旋镖、照妖镜、时光机的故事\hfill
+		\LARGE#5
+	\end{minipage}\par\vskip 10pt
+	\rule{\linewidth}{2.5pt}\vskip 55pt
+
+	\begin{minipage}{\linewidth}
+		#7
+	\end{minipage}
+
+	\vfill
+	\begin{minipage}{\linewidth}
+		\footnotesize\sffamily
+		主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
+	\end{minipage}
+	\rule{\linewidth}{2.5pt}
+\end{titlepage}
+\restoregeometry
+\color{black}
+\fancypagestyle{plain}{
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+	\lhead{}
+	\chead{}
+	\rhead{}
+	\lfoot{\footnotesize \textbf{尘世七国的记忆}\hskip 2em#5}
+	\cfoot{}
+	\rfoot{\small\thepage}
+}
+\pagestyle{plain}\sffamily
 }
 
 
@@ -122,46 +123,90 @@
 		\rmfamily\Huge#2
 	\end{center}
 }
+\newcommand{\dividearticles}[0]{
+	\vskip 30pt
+	\noindent\rule{\linewidth}{2.2pt}
+	\vskip 25pt
+}
 \newcommand{\iarticle}[4]{
 	% argv: author, title, tagline, noteline
-	\clearpage
+	% \vskip 50pt
 	\stepcounter{chapter}
+	\setcounter{section}{0}
 	\phantomsection\addcontentsline{toc}{chapter}{\numberline{\thechapter}#2}
 	\noindent\parbox{\linewidth}{
-		{\small\sffamily\bfseries#3}\par\vskip 10pt
-			{\LARGE\rmfamily\bfseries#2}\par\vskip 10pt
-			{\footnotesize\rmfamily\mdseries#4}\par\vskip 1pt
-		\rule{\linewidth}{1.5pt}
-	}\par
-    \vskip 15pt
+		{\small\sffamily\bfseries#3}\par\vskip 7pt\nopagebreak
+		{\LARGE\rmfamily\bfseries#2}\par\vskip 3pt\nopagebreak
+		{\footnotesize\rmfamily\mdseries#4}\par\nopagebreak
+		\rule{\linewidth}{0.4pt}\nopagebreak
+	}\par\nopagebreak
+	\vskip 15pt\nopagebreak
 }
-\newcommand{\notebox}[2]{
-	\begin{tcolorbox}[colback=gray!5!white,colframe=gray,boxrule=0.4pt,width=\linewidth,left=5pt,right=5pt,top=5pt,bottom=5pt,sharp corners]
-		\fontsize{10pt}{11pt}\selectfont
-		#2
-	\end{tcolorbox}\par
+\newcommand{\isecnum}[0]{
+	\stepcounter{section}
+	\mbox{\hbox to 21.9pt{\arabic{section}. \hfill}}
+}
+\newcommand{\isection}[1]{
+	% argv: sectionname
+	\vskip 22pt plus 40pt minus 5pt
+	\noindent\parbox{\linewidth}{\Large\rmfamily\bfseries#1}
+	\vskip 15pt plus 30pt minus 5pt
+}
+% \newcommand{\notebox}[2]{
+% 	\begin{tcolorbox}[colback=gray!5!white,colframe=gray,boxrule=0.4pt,width=\linewidth,left=5pt,right=5pt,top=5pt,bottom=5pt,sharp corners]
+% 		\fontsize{10pt}{11pt}\selectfont
+% 		#2
+% 	\end{tcolorbox}\par
+% }
+\newcommand{\paraimg}[1]{%
+        \vskip 0pt plus 30pt
+        \noindent\includegraphics[width=\linewidth]{#1}
+        \vskip 3pt plus 30pt
+    }
+\newcommand{\flisthref}[2]{%
+    \noindent%
+    \parbox{\linewidth}{
+        \raggedright
+		\fontsize{9pt}{12pt}\selectfont%
+		\baselineskip=10pt
+		\href{#1}{\rmfamily#2}\hfill\nopagebreak%
+		\\
+		\fontsize{8pt}{8.5pt}\selectfont%
+		\href{#1}{\sffamily\selectfont\mbox{\textcolor{blue!35!gray}{[~#1~]}}}%
+		\hfill
+	}\vskip 5pt
 }
 
 
 
 
-\newcommand{\stdlastpage}[1]{
-	% argv: yearRange
+\newcommand{\stdlastpage}[2]{
+	% argv: yearRange, extraContent
 	\clearpage\pagestyle{empty}
-    \leavevmode\vfill
-	\footnotesize\parindent=0pt
-	版权所有 \copyright{} #1 Neruthes 与其他贡献者。\\
-	文章版权归各个作者所有。\\
-	此文档封面包含《原神》游戏画面之截图，其版权属于上海米哈游影铁科技有限公司或其关联单位。\\
-	此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
-	此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。\\
-	任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\par
-    \vskip 10pt
+	\leavevmode\vfill
+	\noindent\begin{minipage}{382.5pt}
+		\fontsize{8.5pt}{10.5pt}\selectfont
+		\parindent=0pt
+		Copyright \copyright{} #1 Neruthes and other contributors.\\
+		版权所有 \copyright{} #1 Neruthes 与其他贡献者。\\
+		文章版权归各个作者所有。作者文章内容不代表本刊立场。\\
+		本刊独立运作，与米哈游没有任何隶属、指导、赞助关系。\\
+		此文档内包含《原神》游戏画面之截图、官方宣传图片，其版权属于上海米哈游影铁科技有限公司或其关联单位。
+		本刊在版权法「合理使用」框架内谨慎使用此类素材。
+		此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
+		此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。\\
+		任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\par
+		\vskip 10pt
 
-    本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}
-    \par
-    \vskip 10pt
+		本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}\\
+		有关投稿方式等信息，请参阅项目仓库首页的README.md文件。
+		\par
+		\vskip 10pt
+
+		#2
+	\end{minipage}
 }
+\newcommand{\slashsep}[0]{\hskip 7pt/\hskip 7pt}
 
 
 
@@ -173,5 +218,5 @@
 % ============================
 % Miscellaneous utilities
 \newcommand{\cjkul}[1]{\CJKunderanyline{0.5ex}{\rule{2pt}{0.4pt}}{#1}}
-% \newcommand{\pozhehao}[0]{{\fontspec{FandolSong}\CJKfontspec{FandolSong}——}}
-\newcommand{\pozhehao}[0]{\mbox{\raisebox{0.5ex}{\rule{2em}{0.4pt}}}}
+\newcommand{\pozhehao}[0]{{\fontspec{FandolSong}\CJKfontspec{FandolSong}——}}
+% \newcommand{\pozhehao}[0]{\mbox{\raisebox{0.5ex}{\rule{2em}{0.4pt}}}}
