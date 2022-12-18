@@ -15,29 +15,40 @@ function compress_cover() {
     convert "$rawpath" -quality 89 "$imgpath"
     du -h "$rawpath" "$imgpath"
 }
-function compress_journal() {
-    rawpath="$1"
-    imgpath="$(sed 's/cover-raw/cover/' <<< "$rawpath" | sed 's/.[a-zA-Z]*$/.jpg/')"
-    if [[ -e $imgpath ]] && [[ $(date -r $rawpath +%s) -lt $(date -r $imgpath +%s) ]] && [[ -z $FORCE ]]; then
-        return 0
-    fi
-    # if [[ ]]
-    du -h "$rawpath"
-    echo "imgpath = $imgpath"
-    return 0
-    echo "Converting...   $rawpath  ->  $imgpath"
-    convert "$rawpath" -quality 89 "$imgpath"
-    du -h "$rawpath" "$imgpath"
-}
+# function compress_journal() {
+#     rawpath="$1"
+#     imgpath="$(sed 's/cover-raw/cover/' <<< "$rawpath" | sed 's/.[a-zA-Z]*$/.jpg/')"
+#     if [[ -e $imgpath ]] && [[ $(date -r $rawpath +%s) -lt $(date -r $imgpath +%s) ]] && [[ -z $FORCE ]]; then
+#         return 0
+#     fi
+#     # if [[ ]]
+#     du -h "$rawpath"
+#     echo "imgpath = $imgpath"
+#     return 0
+#     echo "Converting...   $rawpath  ->  $imgpath"
+#     convert "$rawpath" -quality 89 "$imgpath"
+#     du -h "$rawpath" "$imgpath"
+# }
 
 
 
 
 
-case $1 in
-    tex)
+
+
+if [[ ! -z $2 ]]; then
+    for i in $*; do
+        bash build.sh "$i" &
+    done
+    exit
+fi
+
+
+
+case "$1" in
+    *.tex)
         ### Usage example:  ./build.sh tex journal/2023/2023-01.tex
-        texfile="$2"
+        texfile="$1"
         mkdir -p .tmp
         xelatex -interaction=scrollmode -output-directory=".tmp" "$texfile"
         output_pdf=".tmp/$(basename "$texfile" | sed 's/tex$/pdf/')"
@@ -52,19 +63,27 @@ case $1 in
             shareDirToNasPublic
         fi
         ;;
+    *A.pdf | *B.pdf | *.tar | *.zip)
+        uploadFn="$1"
+        echo "[INFO] Uploading '$uploadFn'"
+        OSSURL="$(OSS_SUBDIR=ysplayerjournal cfoss "$uploadFn" | grep FINAL_HTTP_URL | cut -d= -f2-)"
+        echo "$uploadFn $OSSURL"
+        echo "$uploadFn $OSSURL" >> .osslist
+        sort -u .osslist -o .osslist
+        ;;
     alltex)
         for texfile in $(find journal -name '*.tex'); do
             bash build.sh tex "$texfile"
             bash build.sh tex "$texfile"
         done
         ;;
-    cover)
+    large-assets/cover*)
         mkdir -p large-assets/cover{,-raw}
         for rawpath in large-assets/cover-raw/*; do
             compress_cover "$rawpath"
         done
         ;;
-    pkgdist)
+    pkgdist | pkgdist/)
         ### pdfdist
         cd _dist
         tar -cvf ../pkgdist/pdfdist.tar ./
@@ -84,20 +103,28 @@ case $1 in
         ### End
         du -h pkgdist/*
         ;;
+    deploy)
+        git add .
+        git commit -m "Automatic deploy command: $(TZ=UTC date -Is | cut -c1-19 | sed 's/T/ /')"
+        git push
+        if [[ $USER == neruthes ]]; then
+            shareDirToNasPublic -e
+            for dropboxdir in pkgdist _dist; do
+                rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
+            done
+        fi
+        ;;
     test)
         rm -rf .cloudbuildroot/*
         cd .cloudbuildroot
         tar -pxvf ../pkgdist/pdfdist.tar
         tree
         ;;
-    osspdf)
-        pdffn="$2"
-        OSSURL="$(OSS_SUBDIR=ysplayerjournal cfoss "$pdffn" | grep FINAL_HTTP_URL | cut -d= -f2-)"
-        echo "$pdffn $OSSURL"
-        echo "$pdffn $OSSURL" >> .osslist
-        sort -u .osslist -o .osslist
-        ;;
     full|'')
         echo "Starting full build..."
+        bash build.sh pkgdist pkgdist/*.{tar,zip} deploy
+        ;;
+    *)
+        echo "[ERROR] No rule to make '$1'. Stopping."
         ;;
 esac
