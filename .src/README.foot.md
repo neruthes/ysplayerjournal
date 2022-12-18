@@ -45,9 +45,14 @@ PDF 产物以 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.
 
 本刊接受如下投稿方式：
 
-- 在 GitHub 开 issue，将投稿内容写入正文。
-- 在 Telegram 上联系 [https://t.me/neruthes](@neruthes)，提供稿件内容（请不要发附件）。
+- 在 GitHub 开 issue，将投稿内容写入 issue 正文。
+- 在 Telegram 上联系 [https://t.me/neruthes](@neruthes)，提供稿件内容。
 - 以纯文本形式向 i@neruthes.xyz 发送电子邮件，将投稿内容写入正文。
+
+注意事项：
+
+- 请指明以何种形式授权本刊发表。推荐使用 CC BY-NC-ND 4.0 许可证授权。此外，可以接受 Creative Commons 全家桶。其他授权方式，编辑部可以酌情考虑。
+- 请不要使用附件功能。粘贴到聊天消息、邮件正文，是更方便的。
 
 ### 文章著作权
 

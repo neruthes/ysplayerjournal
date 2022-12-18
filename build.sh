@@ -51,6 +51,7 @@ case "$1" in
         texfile="$1"
         mkdir -p .tmp
         xelatex -interaction=scrollmode -output-directory=".tmp" "$texfile"
+        xelatex -interaction=scrollmode -output-directory=".tmp" "$texfile"
         output_pdf=".tmp/$(basename "$texfile" | sed 's/tex$/pdf/')"
         final_dir="_dist/$(dirname "$texfile" | cut -c1-)"
         mkdir -p "$final_dir"
@@ -63,11 +64,11 @@ case "$1" in
             pdfrange "$final_path" 1-1 .tmp
             jpgpath="$(realpath "$(pdftoimg ".tmp/$(basename "$final_path" | cut -c1-8)_page1-1.pdf" _dist/covers)")"
             du -h "$jpgpath"
-        fi
-        if [[ "$USER" == neruthes ]] && [[ -z "$NOUPLOAD" ]]; then
-            ### Upload now
-            bash build.sh "$final_path"
-            shareDirToNasPublic
+            if [[ -z "$NOUPLOAD" ]]; then
+                ### Upload now
+                bash build.sh "$final_path"
+                shareDirToNasPublic
+            fi
         fi
         ;;
     *A.pdf | *B.pdf | *.tar | *.zip)
@@ -116,16 +117,17 @@ case "$1" in
         git push
         if [[ $USER == neruthes ]]; then
             ### 1. nas-public   https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/
-            shareDirToNasPublic -e
+            shareDirToNasPublic -e &
             ### 2. Dropbox      https://www.dropbox.com/sh/mmbdbv6xcqyrg7x/AAD-fGMnNeK0eiEpatnpWYyFa?dl=0
             for dropboxdir in pkgdist _dist; do
-                rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
+                rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir &
             done
         fi
         ;;
     README.md)
         bash build.sh ISSUES_LIST.md
         cat .src/README.head.md ISSUES_LIST.md .src/README.foot.md > README.md
+        echo "Rebuilt 'README.md'."
         ;;
     ISSUES_LIST.md)
         for pdfpath in $(find _dist -name '*.pdf' | sort -r); do
@@ -136,7 +138,7 @@ case "$1" in
             echo "- [${pdfyear} 年 $( sed 's/A/ 月（上）/' <<< "$pdfmon" | sed 's/B/ 月（下）/' )]($ossurl)" >> .tmp/mklist.md
         done
         mv .tmp/mklist.md ISSUES_LIST.md
-        cat ISSUES_LIST.md
+        echo "Rebuilt 'ISSUES_LIST.md'."
         ;;
     test)
         rm -rf .cloudbuildroot/*
@@ -146,7 +148,10 @@ case "$1" in
         ;;
     full|'')
         echo "Starting full build..."
-        bash build.sh pkgdist pkgdist/*.{tar,zip} deploy
+        bash build.sh README.md &
+        bash build.sh pkgdist &
+        bash build.sh pkgdist/* &
+        bash build.sh deploy
         ;;
     *)
         echo "[ERROR] No rule to make '$1'. Stopping."

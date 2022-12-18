@@ -16,12 +16,11 @@
 	pdfpagemode=FullScreen
 }
 
-\usepackage[PunctStyle=plain,RubberPunctSkip=false,CJKglue=\hskip 0pt,CJKecglue=\hskip 0.3em plus 3em]{xeCJK}
+\usepackage[PunctStyle=plain,RubberPunctSkip=false,CJKglue=\hskip 0pt,CJKecglue=\hskip 0.3em plus 0.9em]{xeCJK}
 \usepackage{xeCJKfntef}
-% \newcommand{\CJKecglue}{\hskip 2.5pt plus 20pt}
 
-\setmainfont{BaskervilleF}
-\setromanfont{BaskervilleF}
+\setmainfont{XCharter}
+\setromanfont{XCharter}
 \setsansfont{IBM Plex Sans}
 \setmonofont{JetBrains Mono NL}
 \setCJKmainfont{Noto Serif CJK SC}
@@ -38,11 +37,15 @@
 % \setlength{\columnseprule}{0.4pt}
 
 % Playing with tocloft
-\renewcommand{\contentsname}{\LARGE\sffamily\bfseries 本期看点~~~~\Large\mdseries TBALE OF CONTENTS}
+\renewcommand{\contentsname}{%
+	\LARGE\sffamily%
+	\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}%
+	本期看点\hfill TABLE OF CONTENTS\par\vskip 5pt\hrule
+}
 \renewcommand{\cftchapfont}{\sffamily\small}
 \settowidth{\cftchapnumwidth}{\cftchapfont 2222}
 \renewcommand{\cftchappagefont}{\sffamily\small}
-\setlength{\cftbeforechapskip}{1pt}
+\setlength{\cftbeforechapskip}{3pt}
 
 
 
@@ -77,14 +80,12 @@
 	\begin{minipage}{\linewidth}
 		\fontsize{57pt}{65pt}\selectfont
 		% \rmfamily
-		\bfseries
 		\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}
 		尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
 	\end{minipage}\par\vskip 20pt
 	\begin{minipage}{\linewidth}
 		\large
 		% \sffamily
-		\bfseries
 		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
 		那些关于回旋镖、照妖镜、时光机的故事\hfill
 		\LARGE#5
@@ -99,7 +100,7 @@
 	\begin{minipage}{\linewidth}
 		\small
 		% \sffamily
-        \fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
+		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
 		主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
 	\end{minipage}
 	\rule{\linewidth}{2.5pt}
@@ -112,7 +113,7 @@
 	\lhead{}
 	\chead{}
 	\rhead{}
-	\lfoot{\footnotesize\textbf{尘世七国的记忆}\hskip 2em#5}
+	\lfoot{\footnotesize\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}\textbf{尘世七国的记忆}\hskip 2em\fontspec{HYWenHei-65W}\CJKfontspec{HYWenHei-65W}#5}
 	\cfoot{}
 	\rfoot{\small\thepage}
 }
@@ -135,19 +136,24 @@
 	\end{center}
 }
 \newcommand{\dividearticles}[0]{
-	\vskip 30pt plus 30pt minus 5pt
-	\noindent\rule{\linewidth}{3.5pt}
-	\vskip 25pt plus 25pt minus 5pt
+	\vskip 30pt plus 30pt minus 5pt\nopagebreak%
+	\noindent\rule{\linewidth}{3.5pt}\nopagebreak%
+	\vskip 20pt plus 8pt minus 5pt\nopagebreak%
+}
+\newcommand{\virtualpart}[1]{
+    \phantomsection
+    \addtocontents{toc}{\vskip 19pt\hbox to \linewidth{\bfseries\sffamily#1\hfill}\vskip 8pt}
 }
 \newcommand{\iarticle}[4]{
 	% argv: author, title, tagline, noteline
-	% \vskip 50pt
 	\stepcounter{chapter}
 	\setcounter{section}{0}
 	\phantomsection\addcontentsline{toc}{chapter}{\numberline{\thechapter}#2}
 	\noindent\parbox{\linewidth}{
 		{\small\sffamily\bfseries#3}\par\vskip 7pt\nopagebreak
-		{\LARGE\rmfamily\fontspec{HYWenHei}\CJKfontspec{HYWenHei}\bfseries#2}\par\vskip 3pt\nopagebreak
+		{\LARGE\rmfamily%
+			\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}#2%
+		}\par\vskip 3pt\nopagebreak
 		{\footnotesize\rmfamily\mdseries#4}\par\nopagebreak
 		\rule{\linewidth}{0.4pt}\nopagebreak
 	}\par\nopagebreak
@@ -155,7 +161,7 @@
 }
 \newcommand{\isecnum}[0]{
 	\stepcounter{section}
-	\mbox{\hbox to 21.9pt{\arabic{section}. \hfill}}
+	\mbox{\hbox to 21.9pt{\arabic{section}. \hfill}}%
 }
 \newcommand{\isection}[1]{
 	% argv: sectionname
@@ -183,7 +189,7 @@
 		\href{#1}{\rmfamily#2}\hfill\nopagebreak%
 		\\
 		\fontsize{8pt}{8.5pt}\selectfont%
-		\href{#1}{\sffamily\selectfont\mbox{\textcolor{blue!35!gray}{[~#1~]}}}%
+		\href{#1}{\sffamily\selectfont\mbox{\textcolor{blue!50!black}{[~#1~]}}}%
 		\hfill
 	}\vskip 5pt
 }
@@ -207,9 +213,9 @@
 		此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
 		此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。\\
 		任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\\
-        请注意本文档中少量使用的汉仪文黑字体来自汉仪字库的个人非商用授权。\\
-        感谢以下字体的开发者：Noto Sans CJK ~/~ Noto Serif CJK ~/~ IBM Plex Sans ~/~ BaskervilleF
-        \par
+		请注意本文档中少量使用的汉仪文黑字体来自汉仪字库的个人非商用授权。\\
+		感谢以下字体的开发者：Noto Sans CJK ~/~ Noto Serif CJK ~/~ IBM Plex Sans ~/~ XCharter
+		\par
 		\vskip 10pt
 
 		本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}\\
