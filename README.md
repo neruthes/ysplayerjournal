@@ -4,10 +4,30 @@
 
 ## 在线阅读
 
+期刊倒序列表：
+
+- [2023 年 01 月（上）](https://neruthesgithubdistweb.vercel.app/ysplayerjournal/journal/2023/2023-01A.pdf)
+
+
 你可以在这些地方在线阅读本刊：
 
 - https://neruthesgithubdistweb.vercel.app/ysplayerjournal/journal/
 - https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/_dist/journal/
+
+## 文件下载
+
+### 文件用途
+
+- `pkgdist` 打包
+  - `pdfdist.tar` 所有 PDF 产物
+  - `cover-raw.zip` 完整分辨率封面图
+  - `large-assets.zip` 图片素材库
+  - `ysplayerjournal-full.tar` 整个仓库
+
+### 下载渠道
+
+- [Dropbox](https://www.dropbox.com/sh/or10kyoayk8soa2/AADzbxE5eEtjrZoRmJuNfm-Ja/ysplayerjournal?dl=0&subfolder_nav_tracking=1)
+- [nas-public](https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/)
 
 ## 新刊推送
 

@@ -16,13 +16,13 @@
 	pdfpagemode=FullScreen
 }
 
-\usepackage[PunctStyle=plain,RubberPunctSkip=false,CJKglue=\hskip 0pt,CJKecglue=\hskip 2.5pt plus 20pt]{xeCJK}
+\usepackage[PunctStyle=plain,RubberPunctSkip=false,CJKglue=\hskip 0pt,CJKecglue=\hskip 0.3em plus 3em]{xeCJK}
 \usepackage{xeCJKfntef}
 % \newcommand{\CJKecglue}{\hskip 2.5pt plus 20pt}
 
 \setmainfont{BaskervilleF}
 \setromanfont{BaskervilleF}
-\setsansfont{Mona-Sans}
+\setsansfont{IBM Plex Sans}
 \setmonofont{JetBrains Mono NL}
 \setCJKmainfont{Noto Serif CJK SC}
 \setCJKromanfont{Noto Serif CJK SC}
@@ -64,6 +64,7 @@
 	\hypersetup{pdftitle={尘世七国的记忆 - #5}}
 \begin{titlepage}
 	\newgeometry{textwidth=\textwidth+2em,tmargin=16mm,bmargin=16mm}
+	\fontspec{HYWenHei}\CJKfontspec{HYWenHei}
 	\parindent=0pt
 	\AddToShipoutPictureBG*{%
 		\put(#4,-1mm){%
@@ -72,18 +73,22 @@
 		}
 	}
 	\color{#3}
-	\rule{\linewidth}{2.5pt}\vskip 15pt
+	\rule{\linewidth}{2.5pt}\vskip 25pt
 	\begin{minipage}{\linewidth}
-		\fontsize{45pt}{50pt}\selectfont
-		\rmfamily\bfseries
+		\fontsize{57pt}{65pt}\selectfont
+		% \rmfamily
+		\bfseries
+		\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}
 		尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
-	\end{minipage}\par\vskip 10pt
+	\end{minipage}\par\vskip 20pt
 	\begin{minipage}{\linewidth}
-		\normalsize
-		\sffamily\bfseries
+		\large
+		% \sffamily
+		\bfseries
+		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
 		那些关于回旋镖、照妖镜、时光机的故事\hfill
 		\LARGE#5
-	\end{minipage}\par\vskip 10pt
+	\end{minipage}\par\vskip 20pt
 	\rule{\linewidth}{2.5pt}\vskip 55pt
 
 	\begin{minipage}{\linewidth}
@@ -92,7 +97,9 @@
 
 	\vfill
 	\begin{minipage}{\linewidth}
-		\footnotesize\sffamily
+		\small
+		% \sffamily
+        \fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
 		主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
 	\end{minipage}
 	\rule{\linewidth}{2.5pt}
@@ -100,13 +107,12 @@
 \restoregeometry
 \color{black}
 \fancypagestyle{plain}{
-    
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0.4pt}
 	\lhead{}
 	\chead{}
 	\rhead{}
-	\lfoot{\footnotesize \textbf{尘世七国的记忆}\hskip 2em#5}
+	\lfoot{\footnotesize\textbf{尘世七国的记忆}\hskip 2em#5}
 	\cfoot{}
 	\rfoot{\small\thepage}
 }
@@ -120,8 +126,12 @@
 \newcommand{\coverstory}[2]{
 	% argv: author, title
 	\begin{center}
-		\sffamily\small\bfseries 封面故事~~/~~#1\\
-		\rmfamily\Huge#2
+		\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}
+		% \sffamily
+		\small\bfseries 封面故事~~/~~#1\\
+		% \rmfamily
+		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
+		\Huge#2
 	\end{center}
 }
 \newcommand{\dividearticles}[0]{
@@ -137,7 +147,7 @@
 	\phantomsection\addcontentsline{toc}{chapter}{\numberline{\thechapter}#2}
 	\noindent\parbox{\linewidth}{
 		{\small\sffamily\bfseries#3}\par\vskip 7pt\nopagebreak
-		{\LARGE\rmfamily\bfseries#2}\par\vskip 3pt\nopagebreak
+		{\LARGE\rmfamily\fontspec{HYWenHei}\CJKfontspec{HYWenHei}\bfseries#2}\par\vskip 3pt\nopagebreak
 		{\footnotesize\rmfamily\mdseries#4}\par\nopagebreak
 		\rule{\linewidth}{0.4pt}\nopagebreak
 	}\par\nopagebreak
@@ -160,14 +170,14 @@
 % 	\end{tcolorbox}\par
 % }
 \newcommand{\paraimg}[1]{%
-        \vskip 0pt plus 30pt
-        \noindent\includegraphics[width=\linewidth]{#1}
-        \vskip 3pt plus 30pt
-    }
+	\vskip 0pt plus 30pt
+	\noindent\includegraphics[width=\linewidth]{#1}
+	\vskip 3pt plus 30pt
+}
 \newcommand{\flisthref}[2]{%
-    \noindent%
-    \parbox{\linewidth}{
-        \raggedright
+	\noindent%
+	\parbox{\linewidth}{
+		\raggedright
 		\fontsize{9pt}{12pt}\selectfont%
 		\baselineskip=10pt
 		\href{#1}{\rmfamily#2}\hfill\nopagebreak%
@@ -191,12 +201,15 @@
 		Copyright \copyright{} #1 Neruthes and other contributors.\\
 		版权所有 \copyright{} #1 Neruthes 与其他贡献者。\\
 		文章版权归各个作者所有。作者文章内容不代表本刊立场。\\
-		本刊独立运作，与米哈游没有任何隶属、指导、赞助关系。\\
+		本刊是非营利项目，不追求商业收益。本刊独立运作，与米哈游没有任何隶属、指导、赞助关系。\\
 		此文档内包含《原神》游戏画面之截图、官方宣传图片，其版权属于上海米哈游影铁科技有限公司或其关联单位。
 		本刊在版权法「合理使用」框架内谨慎使用此类素材。
 		此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
 		此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。\\
-		任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\par
+		任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\\
+        请注意本文档中少量使用的汉仪文黑字体来自汉仪字库的个人非商用授权。\\
+        感谢以下字体的开发者：Noto Sans CJK\slashsep Noto Serif CJK\slashsep IBM Plex Sans\slashsep BaskervilleF
+        \par
 		\vskip 10pt
 
 		本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}\\
@@ -207,7 +220,7 @@
 		#2
 	\end{minipage}
 }
-\newcommand{\slashsep}[0]{\hskip 7pt/\hskip 7pt}
+\newcommand{\slashsep}[0]{\hskip 11pt/\hskip 11pt}
 
 
 

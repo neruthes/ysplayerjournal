@@ -57,8 +57,15 @@ case "$1" in
         final_path="$final_dir/$(basename "$output_pdf")"
         mv "$output_pdf" "$final_path"
         du -h "$(realpath "$final_path")"
-        ### Upload now if the operating user is Neruthes
+        ### If the operating user is Neruthes
+        if [[ "$USER" == neruthes ]]; then
+            ### Generate cover image
+            pdfrange "$final_path" 1-1 .tmp
+            jpgpath="$(realpath "$(pdftoimg ".tmp/$(basename "$final_path" | cut -c1-8)_page1-1.pdf" _dist/covers)")"
+            du -h "$jpgpath"
+        fi
         if [[ "$USER" == neruthes ]] && [[ -z "$NOUPLOAD" ]]; then
+            ### Upload now 
             bash build.sh osspdf "$final_path"
             shareDirToNasPublic
         fi
@@ -108,11 +115,23 @@ case "$1" in
         git commit -m "Automatic deploy command: $(TZ=UTC date -Is | cut -c1-19 | sed 's/T/ /')"
         git push
         if [[ $USER == neruthes ]]; then
+            ### 1. nas-public   https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/
             shareDirToNasPublic -e
+            ### 2. Dropbox      https://www.dropbox.com/sh/mmbdbv6xcqyrg7x/AAD-fGMnNeK0eiEpatnpWYyFa?dl=0
             for dropboxdir in pkgdist _dist; do
                 rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
             done
         fi
+        ;;
+    mklist)
+        for pdfpath in $(find _dist -name '*.pdf' | sort -r); do
+            pdffn="$(basename $pdfpath)"
+            pdfyear="${pdffn:0:4}"
+            pdfmon="${pdffn:5:3}"
+            echo "- [${pdfyear} 年 $( sed 's/A/ 月（上）/' <<< "$pdfmon" | sed 's/B/ 月（下）/' )](https://neruthesgithubdistweb.vercel.app/ysplayerjournal/${pdfpath:6})" >> .mklist.md
+        done
+        mv .mklist.md ISSUES_LIST.md
+        cat ISSUES_LIST.md
         ;;
     test)
         rm -rf .cloudbuildroot/*
