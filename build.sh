@@ -120,7 +120,7 @@ case "$1" in
             shareDirToNasPublic -e &
             ### 2. Dropbox      https://www.dropbox.com/sh/mmbdbv6xcqyrg7x/AAD-fGMnNeK0eiEpatnpWYyFa?dl=0
             for dropboxdir in pkgdist _dist; do
-                rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir &
+                rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
             done
         fi
         ;;
@@ -149,8 +149,8 @@ case "$1" in
     full|'')
         echo "Starting full build..."
         bash build.sh README.md
-        bash build.sh pkgdist &
-        bash build.sh pkgdist/* &
+        bash build.sh pkgdist
+        bash build.sh pkgdist/*
         bash build.sh deploy
         ;;
     *)
