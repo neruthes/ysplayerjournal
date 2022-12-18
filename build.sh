@@ -117,14 +117,20 @@ case "$1" in
         ### End
         du -h pkgdist/*
         ;;
+    cf)
+        bash build.sh wwwdist
+        wrangler pages publish wwwdist --project-name=ysplayerjournal --commit-dirty=true
+        ;;
     deploy)
         git add .
         git commit -m "Automatic deploy command: $(TZ=UTC date -Is | cut -c1-19 | sed 's/T/ /')"
         git push
         if [[ $USER == neruthes ]]; then
-            ### 1. nas-public   https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/
+            ### 1. Cloudflare Pages
+            bash build.sh cf
+            ### 2. nas-public   https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/
             shareDirToNasPublic -e &
-            ### 2. Dropbox      https://www.dropbox.com/sh/mmbdbv6xcqyrg7x/AAD-fGMnNeK0eiEpatnpWYyFa?dl=0
+            ### 3. Dropbox      https://www.dropbox.com/sh/mmbdbv6xcqyrg7x/AAD-fGMnNeK0eiEpatnpWYyFa?dl=0
             for dropboxdir in pkgdist _dist; do
                 rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
             done
@@ -154,6 +160,7 @@ case "$1" in
         ;;
     full|'')
         echo "Starting full build..."
+        bash build.sh wwwdist
         bash build.sh README.md
         bash build.sh pkgdist
         bash build.sh pkgdist/*
