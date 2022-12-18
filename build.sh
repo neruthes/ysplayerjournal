@@ -38,7 +38,7 @@ function compress_cover() {
 
 if [[ ! -z $2 ]]; then
     for i in $*; do
-        bash build.sh "$i" &
+        bash build.sh "$i"
     done
     exit
 fi
