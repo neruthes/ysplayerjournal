@@ -65,8 +65,8 @@ case "$1" in
             du -h "$jpgpath"
         fi
         if [[ "$USER" == neruthes ]] && [[ -z "$NOUPLOAD" ]]; then
-            ### Upload now 
-            bash build.sh osspdf "$final_path"
+            ### Upload now
+            bash build.sh "$final_path"
             shareDirToNasPublic
         fi
         ;;
@@ -123,14 +123,19 @@ case "$1" in
             done
         fi
         ;;
-    mklist)
+    README.md)
+        bash build.sh ISSUES_LIST.md
+        cat .src/README.head.md ISSUES_LIST.md .src/README.foot.md > README.md
+        ;;
+    ISSUES_LIST.md)
         for pdfpath in $(find _dist -name '*.pdf' | sort -r); do
             pdffn="$(basename $pdfpath)"
             pdfyear="${pdffn:0:4}"
             pdfmon="${pdffn:5:3}"
-            echo "- [${pdfyear} 年 $( sed 's/A/ 月（上）/' <<< "$pdfmon" | sed 's/B/ 月（下）/' )](https://neruthesgithubdistweb.vercel.app/ysplayerjournal/${pdfpath:6})" >> .mklist.md
+            ossurl="$(grep "$pdffn" .osslist | cut -d' ' -f2)"
+            echo "- [${pdfyear} 年 $( sed 's/A/ 月（上）/' <<< "$pdfmon" | sed 's/B/ 月（下）/' )]($ossurl)" >> .tmp/mklist.md
         done
-        mv .mklist.md ISSUES_LIST.md
+        mv .tmp/mklist.md ISSUES_LIST.md
         cat ISSUES_LIST.md
         ;;
     test)
