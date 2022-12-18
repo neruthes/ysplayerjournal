@@ -148,7 +148,7 @@ case "$1" in
         ;;
     full|'')
         echo "Starting full build..."
-        bash build.sh README.md &
+        bash build.sh README.md
         bash build.sh pkgdist &
         bash build.sh pkgdist/* &
         bash build.sh deploy

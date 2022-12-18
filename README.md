@@ -56,8 +56,8 @@ PDF 产物以 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.
 
 本刊接受如下投稿方式：
 
-- 在 GitHub 开 issue，将投稿内容写入正文。
-- 在 Telegram 上联系 [https://t.me/neruthes](@neruthes)，提供稿件内容（请不要发附件）。
+- 在 GitHub 开 issue，将投稿内容写入 issue 正文。
+- 在 Telegram 上联系 [https://t.me/neruthes](@neruthes)，提供稿件内容。
 - 以纯文本形式向 i@neruthes.xyz 发送电子邮件，将投稿内容写入正文。
 
 注意事项：
