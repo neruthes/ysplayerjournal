@@ -91,6 +91,11 @@ case "$1" in
             compress_cover "$rawpath"
         done
         ;;
+    wwwdist | wwwdist/)
+        mkdir -p wwwdist
+        rsync -av --delete wwwsrc/ wwwdist/
+        rsync -av --delete _dist/ wwwdist/_dist/
+        ;;
     pkgdist | pkgdist/)
         ### pdfdist
         cd _dist
@@ -107,6 +112,7 @@ case "$1" in
             --exclude .cloudbuildroot \
             --exclude .private \
             --exclude pkgdist \
+            --exclude wwwdist \
             ./
         ### End
         du -h pkgdist/*
