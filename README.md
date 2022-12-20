@@ -2,19 +2,22 @@
 
 那些关于回旋镖、照妖镜、时光机的故事。
 
+你可以在这些地方在线阅读本刊：
+
+- https://ysplayerjournal.pages.dev/
+- https://neruthesgithubdistweb.vercel.app/ysplayerjournal/journal/
+- https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/_dist/journal/
+
 ## 在线阅读
 
 期刊倒序列表：
 
 
 
-- [2023 年 01 月（上）](https://oss-r2.neruthes.xyz/keep/ysplayerjournal/2023-01A.pdf--ce0c32c080831084260f00716f78410a.pdf)
+- [2023 年 01 月（上）](https://ysplayerjournal.pages.dev/_dist/journal/2023/2023-01A.pdf)
 
 
-你可以在这些地方在线阅读本刊：
 
-- https://neruthesgithubdistweb.vercel.app/ysplayerjournal/journal/
-- https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/_dist/journal/
 
 ## 文件下载
 

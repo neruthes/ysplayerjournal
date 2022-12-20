@@ -3,7 +3,7 @@
 
 \usepackage{calc}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{amsmath,amssymb,xltxtra,fontspec,xunicode,tocloft,fancyhdr,indentfirst}
+\usepackage{amsmath,amssymb,xltxtra,fontspec,xunicode,tocloft,fancyhdr,indentfirst,pgfornament}
 \usepackage{graphicx,eso-pic,datetime2,tabu,tcolorbox,multicol}
 \graphicspath{ {./large-assets}{./large-assets/journal/2023} }
 \usepackage{paralist,enumitem,varwidth}
@@ -42,6 +42,12 @@
 	\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}%
 	本期看点\hfill TABLE OF CONTENTS\par\vskip 5pt\hrule
 }
+% Part
+\renewcommand{\cftpartfont}{\large\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}}
+\settowidth{\cftpartnumwidth}{\cftpartfont 2222}
+\renewcommand{\cftpartpagefont}{\sffamily\small}
+\setlength{\cftbeforepartskip}{19pt}
+% Chapter
 \renewcommand{\cftchapfont}{\sffamily\small}
 \settowidth{\cftchapnumwidth}{\cftchapfont 2222}
 \renewcommand{\cftchappagefont}{\sffamily\small}
@@ -58,72 +64,73 @@
 \newcommand{\isDraft}[0]{
 	\AddToShipoutPictureFG*{%
 		\put(30mm,30mm){%
-			\rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\rmfamily D~R~A~F~T}}
+			\rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}DRAFT}}
 		}
 	}
 }
 \newcommand{\maketitlepage}[7]{
 	% argv: year, seq, textcolor, bgpicshift, issuetime, bgimg, briefing
-	\hypersetup{pdftitle={尘世七国的记忆 - #5}}
-\begin{titlepage}
-	\newgeometry{textwidth=\textwidth+2em,tmargin=16mm,bmargin=16mm}
-	\fontspec{HYWenHei}\CJKfontspec{HYWenHei}
-	\parindent=0pt
-	\AddToShipoutPictureBG*{%
-		\put(#4,-1mm){%
-			% \includegraphics[height=\paperheight+2mm]{cover/cover-#1-#2}
-			\includegraphics[height=\paperheight+2mm]{#6}
+	\begin{titlepage}
+		\hypersetup{pdftitle={尘世七国的记忆 - #5}}
+		\newgeometry{textwidth=\textwidth+2em,tmargin=16mm,bmargin=16mm}
+		\fontspec{HYWenHei}\CJKfontspec{HYWenHei}
+		\parindent=0pt
+		\AddToShipoutPictureBG*{%
+			\put(#4,-1mm){%
+				% \includegraphics[height=\paperheight+2mm]{cover/cover-#1-#2}
+				\includegraphics[height=\paperheight+2mm]{#6}
+			}
 		}
+		\color{#3}
+		\rule{\linewidth}{2.5pt}\vskip 25pt
+		\begin{minipage}{\linewidth}
+			\fontsize{57pt}{65pt}\selectfont
+			% \rmfamily
+			\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}
+			尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
+		\end{minipage}\par\vskip 20pt
+		\begin{minipage}{\linewidth}
+			\large
+			% \sffamily
+			\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
+			那些关于回旋镖、照妖镜、时光机的故事\hfill
+			\LARGE#5
+		\end{minipage}\par\vskip 20pt
+		\rule{\linewidth}{2.5pt}\vskip 55pt
+
+		\begin{minipage}{\linewidth}
+			#7
+		\end{minipage}
+
+		\vfill
+		\begin{minipage}{\linewidth}
+			\small
+			% \sffamily
+			\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
+			主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
+		\end{minipage}
+		\rule{\linewidth}{2.5pt}
+	\end{titlepage}
+	\restoregeometry
+	\color{black}
+	\fancypagestyle{plain}{
+		\renewcommand{\headrulewidth}{0pt}
+		\renewcommand{\footrulewidth}{0.4pt}
+		\lhead{}
+		\chead{}
+		\rhead{}
+		\lfoot{\footnotesize\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}\textbf{尘世七国的记忆}\hskip 2em\fontspec{HYWenHei-65W}\CJKfontspec{HYWenHei-65W}#5}
+		\cfoot{}
+		\rfoot{\small\thepage}
 	}
-	\color{#3}
-	\rule{\linewidth}{2.5pt}\vskip 25pt
-	\begin{minipage}{\linewidth}
-		\fontsize{57pt}{65pt}\selectfont
-		% \rmfamily
-		\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}
-		尘\hfill 世\hfill 七\hfill 国\hfill 的\hfill 记\hfill 忆
-	\end{minipage}\par\vskip 20pt
-	\begin{minipage}{\linewidth}
-		\large
-		% \sffamily
-		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
-		那些关于回旋镖、照妖镜、时光机的故事\hfill
-		\LARGE#5
-	\end{minipage}\par\vskip 20pt
-	\rule{\linewidth}{2.5pt}\vskip 55pt
-
-	\begin{minipage}{\linewidth}
-		#7
-	\end{minipage}
-
-	\vfill
-	\begin{minipage}{\linewidth}
-		\small
-		% \sffamily
-		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
-		主编 Neruthes\hfill 文章版权归作者\hfill CC BY-NC-ND 4.0
-	\end{minipage}
-	\rule{\linewidth}{2.5pt}
-\end{titlepage}
-\restoregeometry
-\color{black}
-\fancypagestyle{plain}{
-	\renewcommand{\headrulewidth}{0pt}
-	\renewcommand{\footrulewidth}{0.4pt}
-	\lhead{}
-	\chead{}
-	\rhead{}
-	\lfoot{\footnotesize\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}\textbf{尘世七国的记忆}\hskip 2em\fontspec{HYWenHei-65W}\CJKfontspec{HYWenHei-65W}#5}
-	\cfoot{}
-	\rfoot{\small\thepage}
-}
-\pagestyle{plain}\sffamily
+	\pagestyle{plain}\sffamily
 }
 
-
-
-
-
+\newcommand{\setfontsize}[1]{\fontsize{#1}{#1}\selectfont}
+\newcommand{\coverstorysmallleft}[1]{
+	% argv: title
+	\parbox{\linewidth}{\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}\Large#1}\par\vskip 45pt
+}
 \newcommand{\coverstory}[2]{
 	% argv: author, title
 	\begin{center}
@@ -133,22 +140,33 @@
 		% \rmfamily
 		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}
 		\Huge#2
-	\end{center}
+	\end{center}\par\vskip 70pt
 }
 \newcommand{\dividearticles}[0]{
 	\vskip 30pt plus 30pt minus 5pt\nopagebreak%
 	\noindent\rule{\linewidth}{3.5pt}\nopagebreak%
 	\vskip 20pt plus 8pt minus 5pt\nopagebreak%
 }
-\newcommand{\virtualpart}[1]{
-    \phantomsection
-    \addtocontents{toc}{\vskip 19pt\hbox to \linewidth{\bfseries\sffamily#1\hfill}\vskip 8pt}
+\newcommand{\realpart}[1]{
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{part}{#1}
+}
+\newcommand{\realpartheader}[1]{
+	\noindent\begin{center}%
+		\huge%
+		\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}%
+		#1
+	\end{center}\par
+	\vskip 5pt
+	\noindent\rule{\linewidth}{3.5pt}
+	\vskip 40pt
 }
 \newcommand{\iarticle}[4]{
 	% argv: author, title, tagline, noteline
 	\stepcounter{chapter}
 	\setcounter{section}{0}
-	\phantomsection\addcontentsline{toc}{chapter}{\numberline{\thechapter}#2}
+	\phantomsection\addcontentsline{toc}{chapter}{#2}
 	\noindent\parbox{\linewidth}{
 		{\small\sffamily\bfseries#3}\par\vskip 7pt\nopagebreak
 		{\LARGE\rmfamily%
@@ -169,12 +187,6 @@
 	\noindent\parbox{\linewidth}{\Large\rmfamily\bfseries#1}
 	\vskip 15pt plus 30pt minus 5pt
 }
-% \newcommand{\notebox}[2]{
-% 	\begin{tcolorbox}[colback=gray!5!white,colframe=gray,boxrule=0.4pt,width=\linewidth,left=5pt,right=5pt,top=5pt,bottom=5pt,sharp corners]
-% 		\fontsize{10pt}{11pt}\selectfont
-% 		#2
-% 	\end{tcolorbox}\par
-% }
 \newcommand{\paraimg}[1]{%
 	\vskip 0pt plus 30pt
 	\noindent\includegraphics[width=\linewidth]{#1}
@@ -192,6 +204,19 @@
 		\href{#1}{\sffamily\selectfont\mbox{\textcolor{blue!50!black}{[~#1~]}}}%
 		\hfill
 	}\vskip 5pt
+}
+
+
+
+
+\newcommand{\mininews}[2]{
+	% argv: title, content
+	\noindent\parbox{\linewidth}{%
+		\noindent\parbox{\linewidth}{\Large\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}#1}\par\vskip 9pt\nopagebreak
+		#2
+	}\par\nopagebreak
+	\vskip 15pt plus 12pt\nopagebreak
+	\hrule\vskip 15pt plus 12pt
 }
 
 

@@ -132,7 +132,7 @@ case "$1" in
             shareDirToNasPublic -e &
             ### 3. Dropbox      https://www.dropbox.com/sh/mmbdbv6xcqyrg7x/AAD-fGMnNeK0eiEpatnpWYyFa?dl=0
             for dropboxdir in pkgdist _dist; do
-                rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
+                HTTPS_PROXY=http://10.0.233.20:7890 rclone sync -P -L  $dropboxdir  dropbox-main:devdistpub/ysplayerjournal/$dropboxdir
             done
         fi
         ;;
@@ -147,7 +147,8 @@ case "$1" in
             pdfyear="${pdffn:0:4}"
             pdfmon="${pdffn:5:3}"
             ossurl="$(grep "$pdffn" .osslist | cut -d' ' -f2)"
-            echo "- [${pdfyear} 年 $( sed 's/A/ 月（上）/' <<< "$pdfmon" | sed 's/B/ 月（下）/' )]($ossurl)" >> .tmp/mklist.md
+            pdfurl="https://ysplayerjournal.pages.dev/_dist/journal/$pdfyear/$pdffn"
+            echo "- [${pdfyear} 年 $( sed 's/A/ 月（上）/' <<< "$pdfmon" | sed 's/B/ 月（下）/' )]($pdfurl)" >> .tmp/mklist.md
         done
         mv .tmp/mklist.md ISSUES_LIST.md
         echo "Rebuilt 'ISSUES_LIST.md'."
