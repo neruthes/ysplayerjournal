@@ -14,7 +14,8 @@
 
         html,
         body {
-            font-family: 'JetBrains Mono NL', 'JetBrains Mono WOFF', 'JetBrains Mono', -apple-system, 'Noto Sans Mono', 'Noto Sans', sans-serif, 'Noto Sans CJK SC';
+            /* font-family: 'JetBrains Mono NL', 'JetBrains Mono WOFF', 'JetBrains Mono', -apple-system, 'Noto Sans Mono', 'Noto Sans', sans-serif, 'Noto Sans CJK SC'; */
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-size: 15px;
             line-height: 1.6;
             padding: 0px;
@@ -41,20 +42,36 @@
         .current-issue img {
             border-radius: 7px;
             box-shadow: rgba(0, 0, 0, 0.2) 0 4px 16px 1px;
+            display: block;
+            max-width: 100%;
+            height: 50vh;
+            margin: 0 auto 20px;
             transition: all 200ms ease;
         }
 
         .current-issue img:hover {
             /* border-radius: 7px; */
-            transform: translate(0, -5px);
+            transform: translate(0, -3px) scale(1.008);
             box-shadow: rgba(0, 0, 0, 0.3) 0 8px 24px 5px;
         }
 
+        /* h3 {
+            font-size: 19px;
+            text-align: center;
+        } */
+
         .issues-list a.issue-link {
+            font-family: 'JetBrains Mono', 'Inconsolata', 'Courier New', Courier, monospace;
+            font-size: 14px;
+            text-align: center;
             text-decoration: none;
             display: inline-block;
             width: 50%;
-            padding: 5px 0;
+            padding: 08px;
+        }
+        .issues-list a.issue-link > div {
+            border: 1px solid #777;
+            padding: 15px 5px;
         }
 
         footer>p {
@@ -84,7 +101,7 @@
                 </div>
                 <div class="section">
                     <div>
-                        <h2>所有期刊</h2>
+                        <!-- <h2>所有期刊</h2> -->
                     </div>
                     <div class="issues-list">
                     </div>
@@ -93,7 +110,7 @@
                     const lastIssue = '2023-01A';
                     document.querySelector('.current-issue').innerHTML = `<div>
                         <a href="/_dist/journal/${lastIssue.slice(0, 4)}/${lastIssue}.pdf" style="display: block;">
-                            <img src="/_dist/covers/${lastIssue}_page1-1.pdf.jpg" style="display: block; height: 50vh; margin: 0 auto 20px;">
+                            <img src="/_dist/covers/${lastIssue}_page1-1.pdf.jpg">
                         </a>
                     <div>`;
                     document.querySelector('.issues-list').innerHTML = (function () {
@@ -109,11 +126,15 @@
                                 polarity: i % 2
                             };
                         }).filter(x => x.issueID <= lastIssue).reverse().map(function (obj, ii) {
-                            return `<a
+                            let extra = '';
+                            if (obj.issueID.endsWith('-12B') || ii === 0) {
+                                extra = `<h2>${obj.year}</h2>`
+                            }
+                            return extra + `<a
                                 class="issue-link"
                                 href="/_dist/journal/${obj.year}/${obj.issueID}.pdf"
                             >
-                                ${obj.year} 年 ${obj.month} 月（${['上', '下'][obj.polarity]}）
+                                <div>${obj.year}-${obj.month} ${['上', '下'][obj.polarity]}</div>
                             </a>`;
                         });
                         console.log(rawArr);
