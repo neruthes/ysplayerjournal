@@ -64,7 +64,7 @@
 \newcommand{\isDraft}[0]{
 	\AddToShipoutPictureFG*{%
 		\put(30mm,30mm){%
-			\rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\fontspec{HYWenHei-85W}\CJKfontspec{HYWenHei-85W}DRAFT}}
+			\rotatebox{45}{\textcolor{red}{\fontsize{100pt}{100pt}\selectfont\fontspec{Latin Modern Roman}DRAFT}}
 		}
 	}
 }
@@ -231,29 +231,31 @@
 		\parindent=0pt
 		Copyright \copyright{} #1 Neruthes and other contributors.\\
 		版权所有 \copyright{} #1 Neruthes 与其他贡献者。\\
-		文章版权归各个作者所有。作者文章内容不代表本刊立场。\\
+		文章版权归各个作者所有。作者文章内容不代表本刊立场。\par\vskip 10pt
+
 		本刊是非营利项目，不追求商业收益。本刊独立运作，与米哈游没有任何隶属、指导、赞助关系。\\
 		此文档内包含《原神》游戏画面之截图、官方宣传图片，其版权属于上海米哈游影铁科技有限公司或其关联单位。
 		本刊在版权法「合理使用」框架内谨慎使用此类素材。
-		此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
+		此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\par\vskip 10pt
+
 		此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。
 		任何人和单位可以在非商业使用、不修改的前提下复制、分发此文档（PDF）。注意，此许可仅限本文档整体，在复制、分发时必须以本文档整体为基本单位。\\
-		本文档中少量使用的汉仪文黑字体来自汉仪字库的个人非商用授权，请参考其授权条款以避免侵权。\\
-		\par
-		\vskip 10pt
-        
-		本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}\\
+		本文档中少量使用的汉仪文黑字体来自北京汉仪创新科技股份有限公司的字库软件个人非商用授权，请参考其授权条款以避免侵权。
+		\par\vskip 10pt
+
+		本刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{\CJKunderline{https://github.com/neruthes/ysplayerjournal}}\\
 		有关投稿方式等信息，请参阅项目仓库首页的README.md文件。
-		\par
-		\vskip 10pt
-        
+		\par\vskip 10pt
+
 		#2
-		\par
-		\vskip 10pt
+		\par\vskip 10pt
+
 		感谢以下字体的开发者：Noto Sans CJK ~/~ Noto Serif CJK ~/~ IBM Plex Sans ~/~ XCharter
+		\par\vskip 10pt
+		\hrule
 	\end{minipage}
 }
-\newcommand{\slashsep}[0]{\hskip 11pt/\hskip 11pt}
+\newcommand{\slashsep}[0]{\hskip 8pt plus 7pt/\hskip 8pt plus 7pt}
 
 
 

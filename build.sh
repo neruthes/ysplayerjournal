@@ -91,6 +91,7 @@ case "$1" in
         done
         ;;
     wwwdist | wwwdist/)
+        bash build.sh checksum.txt
         mkdir -p wwwdist
         rsync -av --delete wwwsrc/ wwwdist/
         rsync -av --delete _dist/ wwwdist/_dist/
@@ -119,6 +120,10 @@ case "$1" in
     cf)
         bash build.sh wwwdist
         wrangler pages publish wwwdist --project-name=ysplayerjournal --commit-dirty=true
+        ;;
+    checksum.txt)
+        sha256sum _dist/journal/*/*.pdf > checksum.txt
+        cat checksum.txt > wwwsrc/checksum.txt
         ;;
     deploy)
         git add .
