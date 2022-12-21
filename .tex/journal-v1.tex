@@ -160,7 +160,7 @@
 	\end{center}\par
 	\vskip 5pt
 	\noindent\rule{\linewidth}{3.5pt}
-	\vskip 40pt
+	\vskip 20pt plus 50pt
 }
 \newcommand{\iarticle}[4]{
 	% argv: author, title, tagline, noteline
@@ -188,9 +188,9 @@
 	\vskip 15pt plus 30pt minus 5pt
 }
 \newcommand{\paraimg}[1]{%
-	\vskip 0pt plus 30pt
+	\vskip 5pt plus 30pt
 	\noindent\includegraphics[width=\linewidth]{#1}
-	\vskip 3pt plus 30pt
+	\vskip 5pt plus 30pt
 }
 \newcommand{\flisthref}[2]{%
 	\noindent%
@@ -212,11 +212,11 @@
 \newcommand{\mininews}[2]{
 	% argv: title, content
 	\noindent\parbox{\linewidth}{%
-		\noindent\parbox{\linewidth}{\Large\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}#1}\par\vskip 9pt\nopagebreak
+		\noindent\parbox{\linewidth}{\Large\fontspec{HYWenHei-75W}\CJKfontspec{HYWenHei-75W}#1}\par\vskip 7pt\nopagebreak
 		#2
 	}\par\nopagebreak
-	\vskip 15pt plus 12pt\nopagebreak
-	\hrule\vskip 15pt plus 12pt
+	\vskip 7pt plus 25pt\nopagebreak
+	\hrule\vskip 7pt plus 25pt
 }
 
 
@@ -236,19 +236,21 @@
 		此文档内包含《原神》游戏画面之截图、官方宣传图片，其版权属于上海米哈游影铁科技有限公司或其关联单位。
 		本刊在版权法「合理使用」框架内谨慎使用此类素材。
 		此文档内可能包含其他图片，具体版权情况以此文档内的备注为准。\\
-		此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。\\
-		任何人和单位可以在非商业使用、不修改的前提下复制、印刷、分发此文档（PDF）。\\
+		此文档以\CJKecglue\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\CJKunderline{CC BY-NC-ND 4.0}}\CJKecglue{}许可证发布。
+		任何人和单位可以在非商业使用、不修改的前提下复制、分发此文档（PDF）。注意，此许可仅限本文档整体，在复制、分发时必须以本文档整体为基本单位。\\
 		本文档中少量使用的汉仪文黑字体来自汉仪字库的个人非商用授权，请参考其授权条款以避免侵权。\\
-		感谢以下字体的开发者：Noto Sans CJK ~/~ Noto Serif CJK ~/~ IBM Plex Sans ~/~ XCharter
 		\par
 		\vskip 10pt
-
+        
 		本期刊在GitHub上的项目仓库：\href{https://github.com/neruthes/ysplayerjournal}{https://github.com/neruthes/ysplayerjournal}\\
 		有关投稿方式等信息，请参阅项目仓库首页的README.md文件。
 		\par
 		\vskip 10pt
-
+        
 		#2
+		\par
+		\vskip 10pt
+		感谢以下字体的开发者：Noto Sans CJK ~/~ Noto Serif CJK ~/~ IBM Plex Sans ~/~ XCharter
 	\end{minipage}
 }
 \newcommand{\slashsep}[0]{\hskip 11pt/\hskip 11pt}

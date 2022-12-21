@@ -66,7 +66,6 @@ case "$1" in
             du -h "$jpgpath"
             if [[ -z "$NOUPLOAD" ]]; then
                 ### Upload now
-                bash build.sh "$final_path"
                 shareDirToNasPublic
             fi
         fi
