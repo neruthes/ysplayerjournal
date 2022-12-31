@@ -47,11 +47,11 @@ fi
 
 case "$1" in
     *.tex)
-        ### Usage example:  ./build.sh tex journal/2023/2023-01.tex
+        ### Usage example:  ./build.sh journal/2023/2023-01.tex
         texfile="$1"
         mkdir -p .tmp
-        xelatex -interaction=scrollmode -output-directory=".tmp" "$texfile"
-        xelatex -interaction=scrollmode -output-directory=".tmp" "$texfile"
+        xelatex -interaction=batchmode -output-directory=".tmp" "$texfile"
+        xelatex -interaction=batchmode -output-directory=".tmp" "$texfile"
         output_pdf=".tmp/$(basename "$texfile" | sed 's/tex$/pdf/')"
         final_dir="_dist/$(dirname "$texfile" | cut -c1-)"
         mkdir -p "$final_dir"
