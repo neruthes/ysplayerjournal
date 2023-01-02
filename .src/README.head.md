@@ -6,7 +6,6 @@
 
 - https://ysplayerjournal.pages.dev/
 - https://neruthesgithubdistweb.vercel.app/ysplayerjournal/journal/
-- https://nas-public-zt.neruthes.xyz/ysplayerjournal-f681b66df3384d4ed08719ce/_dist/journal/
 
 ## 在线阅读
 
